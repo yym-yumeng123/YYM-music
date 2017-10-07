@@ -72,40 +72,74 @@
 			<li>
 				<img src="images/1.jpg" alt="专题">
 				<div class="name">
-					热歌
+					
 				</div>				
 			</li>
 			<li>
 				<img src="images/2.jpg" alt="专题">
 				<div class="name">
-					热歌
+					
 				</div>					
 			</li>
 			<li>
 				<img src="images/3.jpg" alt="专题">	
 				<div class="name">
-					热歌
+					
 				</div>				
 			</li>
 			<li>
 				<img src="images/4.jpg" alt="专题">	
 				<div class="name">
-					热歌
+					
 				</div>				
 			</li>
 			<li>
 				<img src="images/5.jpg" alt="专题">
 				<div class="name">
-					热歌
+					
 				</div>	
 			</li>
 			<li>
 				<img src="images/6.jpg" alt="专题">
 				<div class="name">
-					热歌
+					
 				</div>	
 			</li>
 		</ul>
 	</div>
+
+
+<script>
+	var index = 0
+	var Singlename = document.querySelectorAll("ul>li .name")
+
+
+	getChannels(function(list){
+		console.log(list)
+		for (var i = 0; i < Singlename.length; i++) {
+			Singlename[i].innerText = list.channels[index].name
+			index++
+		}
+	})
+	//获取专辑分类
+	function getChannels(callback){
+		var xhr = new XMLHttpRequest()
+		xhr.open('GET',' https://jirenguapi.applinzi.com/fm/getChannels.php',true)
+		xhr.onload = function(){
+			if ((xhr.status>=200 && xhr.status<300) || xhr.status == 300) {
+				callback(JSON.parse(xhr.responseText))								 
+			}else{
+				alert("服务器异常")
+			}
+		}
+		xhr.send()
+	}
+	
+
+
+</script>
+
+
+
 </body>
 </html>
