@@ -133,3 +133,7 @@ ul>li>img{
 	height: 150px;
 	padding: 20px;
 }
+ul>li .name{
+	font-size: 16px;
+	margin-bottom: 5px;
+}
