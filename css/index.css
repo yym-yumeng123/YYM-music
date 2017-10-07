@@ -1,0 +1,76 @@
+ .icon {
+   width: 1em; height: 1em;
+   vertical-align: -0.15em;
+   fill: currentColor;
+   overflow: hidden;
+}
+
+
+html,body{
+	width: 100%;
+	height: 100%;
+}
+.clearfix::after{
+	content: '';
+	display: block;
+	clear: both;
+}
+.pages .bg{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -1;
+	background: url(../images/bg.jpg) no-repeat center;
+	background-size: cover;
+	filter: blur(6px);
+}
+
+
+/*左侧专辑封面css*/
+
+
+.play{
+	padding: 50px 50px ;
+}
+.play .music-panel{
+	width: 40%;
+	float: left;
+	text-align: center;
+}
+.play .music-panel img{
+	width: 300px;
+	height: 300px;
+	vertical-align: middle;
+}
+.play .music-panel .pic .iconfont{
+	width: 25px;
+	height: 25px;
+	margin: 20px;
+	color: white;
+}
+
+
+
+/*底部图片css*/
+ul{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+ul>li{
+	float: left;	
+	width: calc(100% / 6);
+	text-align: center;
+}
+ul>li>img{
+	position: relative;
+	z-index: 20;
+	width: 150px;
+	height: 150px;
+	padding: 20px;
+}
