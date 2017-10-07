@@ -52,6 +52,63 @@ html,body{
 }
 
 
+/*右边信息*/
+.play .intro{
+			width: 60%;
+	float: left;
+	color: #fff;
+}
+.play .intro p{
+	display: inline-block;
+	padding: 5px 10px;
+	background-color: #357aec;
+	
+}
+.play .intro h2{
+	font-size: 25px;
+	color: #fff;
+	margin-top: 30px;
+}
+.play .intro .information{
+	display: inline-block;
+	margin-right: 30px;
+	font-size: 14px;
+}
+.play .intro .icon-num{
+	width: 16px;
+	height: 16px;
+	margin-top: 60px;
+	margin-right: 3px;
+}
+
+.play .intro .progress{
+	width: 400px;
+}
+.play .intro .progress .bar{
+	height: 3px;
+	margin-top: 80px;
+	background-color: rgba(0, 0, 0, 0.2);
+		cursor: pointer;
+}
+.progress .progress-now{
+	background-color: #fff;
+	height: 3px;
+	width: 100px;
+}
+.progress .time{
+	text-align: right;
+	margin-top: 3px;
+	font-size: 14px;
+}
+.progress .info .title{
+	font-size: 14px;
+	font-weight: 400;
+	margin-top: 10px;
+}
+.progress .info .auther{
+	margin-top: 3px;
+}
+
 
 /*底部图片css*/
 ul{
@@ -61,6 +118,8 @@ ul{
 	bottom: 0;
 	padding-left: 50px;
 	padding-right: 50px;
+	background-color: rgba(204,204,204,.2);
+	/*border: 1px solid #ccc;*/
 }
 ul>li{
 	float: left;	
