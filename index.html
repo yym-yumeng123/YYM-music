@@ -5,7 +5,7 @@
 	<title>FM</title>
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="./css/index.css">
-	<script src="//at.alicdn.com/t/font_434295_pltfyacdkppkfbt9.js"></script>
+	<script src="//at.alicdn.com/t/font_434295_dxha178jwggv6lxr.js"></script>
 	<style>
 
 	</style>
@@ -13,22 +13,22 @@
 <body>
 	<div class="pages">
 		<!-- <div class="bg"></div> -->
-		<img id="bg" src="images/bg.jpg" alt="">
+		<img id="bg" src="" alt=""> <!-- images/bg.jpg -->
 		<div class="play clearfix">
 			<!-- 左边专辑播放页 -->
 			<div class="music-panel">
-				<img src="images/bg.jpg" alt="专辑封面">
+				<img src="" alt="专辑封面">
 				<div class="pic">
 					<svg class="icon iconfont">
 				    	<use xlink:href="#icon-dianzan"></use>
 					</svg>
-					<svg class="icon iconfont">
+					<svg class="icon iconfont zanting">
 					    <use xlink:href="#icon-zanting"></use>
 					</svg>
-					<svg class="icon iconfont">
+					<svg class="icon iconfont bofang">
 					    <use xlink:href="#icon-bofang"></use>
 					</svg>
-					<svg class="icon iconfont">
+					<svg class="icon iconfont ttpodicon">
 					    <use xlink:href="#icon-ttpodicon"></use>
 					</svg>
 				</div>			
@@ -59,7 +59,7 @@
 			          <div class="progress-total"></div>
 			          <div class="progress-now"></div>
 			        </div>
-			        <div class="time">0:00</div>
+			        <div class="time"></div>
 			        <div class="info">
 			        	<div class="title"></div>
 			        	<div class="auther"></div>
@@ -146,17 +146,26 @@
 
 	}
 
+	//声明变量存储元素
 	var currentIndex = 0
+	var clock
+	var musiclist = []
 	var audioObject = new Audio()
 	audioObject.autoplay = true
 	var title = document.querySelector('.info .title')
 	var auther = document.querySelector('.info .auther')
 	var pic = document.querySelector('.music-panel img')
 	var bg = document.querySelector('#bg')
-	
+	var progressNow = document.querySelector('.progress .progress-now')
+	var time = document.querySelector('.progress .time')
+	var pau = document.querySelector('.zanting')
+	var playS = document.querySelector('.bofang')
+	var ttpodicon = document.querySelector('.ttpodicon')
+	var bar = document.querySelector('.progress .bar')
 
 	//调用
 	getMusiclist(function(list){
+		musiclist = list.song
 		// 获取音乐播放列表第一个
 		loadMusic(list.song[currentIndex])
 	})
@@ -164,8 +173,7 @@
 	function loadMusic(musicObj){
 		console.log(musicObj)
 		//获取资源的url,标题和作者
-		audioObject.src = musicObj.url
-		console.log(audioObject.src)
+		audioObject.src = 'http://cloud.hunger-valley.com/music/玫瑰.mp3'
 		title.innerText = musicObj.title
 		auther.innerText = musicObj.artist
 		pic.src = musicObj.picture
@@ -173,11 +181,48 @@
 	}
 
 	audioObject.ontimeupdate = function(){
-		console.log(1)
+		//进度条的百分比
+		progressNow.style.width = this.currentTime/this.duration *100 + '%'
 	}
-	
 
+	//播放时时间设置
+	audioObject.onplay = function(){
+		clock = setInterval(function(){
+			var min = Math.floor(audioObject.currentTime/60)
+			var sec = Math.floor(audioObject.currentTime%60) + ''
+			sec = sec.length == 2 ? sec : "0" + sec
+			time.innerText = min + ':' + sec
+		},1000)
+	}
+	audioObject.onpause = function(){
+		clearInterval(clock)
+	}
+	audioObject.onended = function(){
+		loadMusic()
+		currentIndex = (++currentIndex)%musiclist.length
+	}
+	//点击暂停
+	pau.onclick = function(){
+		audioObject.pause()
+	}
+	//点击播放
+	playS.onclick = function(){
+		audioObject.play()
+	}
+	//下一曲
+	ttpodicon.onclick = function(){
+		//加载音乐
+		loadMusic()
+		currentIndex = (++currentIndex)%musiclist.length
+		console.log(currentIndex)
+	}
 
+	bar.addEventListener('click',function(e){
+		console.log(e)
+		var percent = e.offsetX / parseInt(getComputedStyle(this).width)
+		audioObject.currentTime = audioObject.duration * percent
+
+	})
 </script>
 
 
