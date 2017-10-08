@@ -15,16 +15,12 @@ html,body{
 	display: block;
 	clear: both;
 }
-.pages .bg{
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+.pages #bg{
+	position: fixed;
 	z-index: -1;
-	background: url(../images/bg.jpg) no-repeat center;
-	background-size: cover;
-	filter: blur(7px);
+	width: 100%;
+	height: 100%;
+	filter: blur(4px);
 }
 
 

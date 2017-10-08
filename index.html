@@ -12,7 +12,8 @@
 </head>
 <body>
 	<div class="pages">
-		<div class="bg"></div>
+		<!-- <div class="bg"></div> -->
+		<img id="bg" src="images/bg.jpg" alt="">
 		<div class="play clearfix">
 			<!-- 左边专辑播放页 -->
 			<div class="music-panel">
@@ -60,8 +61,8 @@
 			        </div>
 			        <div class="time">0:00</div>
 			        <div class="info">
-			        	<div class="title">我的歌曲</div>
-			        	<div class="auther">作者</div>
+			        	<div class="title"></div>
+			        	<div class="auther"></div>
 			    	</div>
 			     </div>   
 
@@ -105,29 +106,74 @@
 
 
 <script>
-	var index = 0
+
+
 	var Singlename = document.querySelectorAll("ul>li .name")
-
-
-	getChannels(function(list){
-		console.log(list)
-		for (var i = 0; i < Singlename.length; i++) {
-			Singlename[i].innerText = list.channels[index].name
-			index++
-		}
-	})
 	//获取专辑分类
-	function getChannels(callback){
+	var xhr = new XMLHttpRequest()
+	xhr.open('GET',' https://jirenguapi.applinzi.com/fm/getChannels.php',true)
+	xhr.onload = function(){
+		if ((xhr.status>=200 && xhr.status<300) || xhr.status == 300) {
+			var list = JSON.parse(xhr.responseText)
+			var index = 0
+			for (var i = 0; i < Singlename.length; i++) {
+				Singlename[i].innerText = list.channels[index].name
+				index++
+			}								 
+		}else{
+			alert("服务器异常")
+		}
+	}
+	xhr.send()
+
+
+
+
+	//音乐地址
+	//封装一个函数
+	function getMusiclist(callback){
+
 		var xhr = new XMLHttpRequest()
-		xhr.open('GET',' https://jirenguapi.applinzi.com/fm/getChannels.php',true)
+		xhr.open('GET','https://jirenguapi.applinzi.com/fm/getSong.php',true)
 		xhr.onload = function(){
 			if ((xhr.status>=200 && xhr.status<300) || xhr.status == 300) {
-				callback(JSON.parse(xhr.responseText))								 
+				callback(JSON.parse(xhr.responseText))			 
 			}else{
 				alert("服务器异常")
 			}
 		}
 		xhr.send()
+
+	}
+
+	var currentIndex = 0
+	var audioObject = new Audio()
+	audioObject.autoplay = true
+	var title = document.querySelector('.info .title')
+	var auther = document.querySelector('.info .auther')
+	var pic = document.querySelector('.music-panel img')
+	var bg = document.querySelector('#bg')
+	
+
+	//调用
+	getMusiclist(function(list){
+		// 获取音乐播放列表第一个
+		loadMusic(list.song[currentIndex])
+	})
+	
+	function loadMusic(musicObj){
+		console.log(musicObj)
+		//获取资源的url,标题和作者
+		audioObject.src = musicObj.url
+		console.log(audioObject.src)
+		title.innerText = musicObj.title
+		auther.innerText = musicObj.artist
+		pic.src = musicObj.picture
+		bg.src = musicObj.picture
+	}
+
+	audioObject.ontimeupdate = function(){
+		console.log(1)
 	}
 	
 
