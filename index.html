@@ -203,9 +203,9 @@
 		clearInterval(clock)
 	}
 	audioObject.onended = function(){
-		loadMusic()
-		getMusiclist()
-		currentIndex = (++currentIndex)%musiclist.length
+		loadMusic()  //加载音乐函数
+		getMusiclist()   //ajax请求函数
+		// currentIndex = (++currentIndex)%musiclist.length
 	}
 	//点击暂停
 	pau.onclick = function(){
@@ -220,7 +220,7 @@
 
 		//加载音乐
 		loadMusic()
-		currentIndex = (++currentIndex)%musiclist.length
+		//currentIndex = (++currentIndex)%musiclist.length
 		console.log(currentIndex)
 	}
 
