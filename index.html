@@ -138,7 +138,7 @@
 	function getMusiclist(callback){
 
 		var xhr = new XMLHttpRequest()
-		xhr.open('GET','http://api.jirengu.com/fm/getSong.php?',true)
+		xhr.open('GET','https://jirenguapi.applinzi.com/fm/getSong.php?',true)
 		xhr.onload = function(){
 			if ((xhr.status>=200 && xhr.status<300) || xhr.status == 300) {
 				callback(JSON.parse(xhr.responseText))			 
@@ -178,7 +178,7 @@
 	function loadMusic(musicObj){
 		console.log(musicObj)
 		//获取资源的url,标题和作者
-		audioObject.src = 'http://cloud.hunger-valley.com/music/玫瑰.mp3'  //musicObj.url
+		audioObject.src =  musicObj.url 
 		title.innerText = musicObj.title
 		auther.innerText = musicObj.artist
 		pic.src = musicObj.picture
@@ -204,6 +204,7 @@
 	}
 	audioObject.onended = function(){
 		loadMusic()
+		getMusiclist()
 		currentIndex = (++currentIndex)%musiclist.length
 	}
 	//点击暂停
@@ -229,9 +230,12 @@
 		audioObject.currentTime = audioObject.duration * percent
 
 	})
+
+
+	//'http://cloud.hunger-valley.com/music/玫瑰.mp3'
 </script>
 
-
+ 
 
 </body>
 </html>

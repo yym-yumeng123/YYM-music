@@ -95,7 +95,7 @@ html,body{
 	cursor: pointer;
 }
 .progress .progress-now{
-	background-color: #fff;
+	background-color: #f89488;
 	height: 5px;
 	width: 0;
 }
@@ -103,14 +103,17 @@ html,body{
 	text-align: right;
 	margin-top: 3px;
 	font-size: 14px;
+	color: #f89488;
 }
 .progress .info .title{
 	font-size: 14px;
 	font-weight: 400;
 	margin-top: 10px;
+	color: #f89488;
 }
 .progress .info .auther{
 	margin-top: 3px;
+	color: #f89488;
 }
 
 
