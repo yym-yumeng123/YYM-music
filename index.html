@@ -177,6 +177,7 @@
 	
 	function loadMusic(musicObj){
 		console.log(musicObj)
+		getMusiclist()
 		//获取资源的url,标题和作者
 		audioObject.src =  musicObj.url 
 		title.innerText = musicObj.title
@@ -203,8 +204,8 @@
 		clearInterval(clock)
 	}
 	audioObject.onended = function(){
+		getMusiclist(musiclist)
 		//loadMusic()  //加载音乐函数
-		getMusiclist()   //ajax请求函数
 		// currentIndex = (++currentIndex)%musiclist.length
 	}
 	//点击暂停
