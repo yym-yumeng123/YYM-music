@@ -132,24 +132,6 @@
 
 
 
-
-	//音乐地址
-	//封装一个函数
-	function getMusiclist(callback){
-
-		var xhr = new XMLHttpRequest()
-		xhr.open('GET','https://jirenguapi.applinzi.com/fm/getSong.php?',true)
-		xhr.onload = function(){
-			if ((xhr.status>=200 && xhr.status<300) || xhr.status == 300) {
-				callback(JSON.parse(xhr.responseText))			 
-			}else{
-				alert("服务器异常")
-			}
-		}
-		xhr.send()
-
-	}
-
 	//声明变量存储元素
 	var currentIndex = 0
 	var clock
@@ -167,17 +149,42 @@
 	var ttpodicon = document.querySelector('.ttpodicon')
 	var bar = document.querySelector('.progress .bar')
 
+	//音乐地址
+	//封装一个函数
+	
+	function getMusiclist(callback){
+
+		var xhr = new XMLHttpRequest()
+		xhr.open('GET','https://jirenguapi.applinzi.com/fm/getSong.php?',true)
+		xhr.onload = function(){
+			if ((xhr.status>=200 && xhr.status<300) || xhr.status == 300) {
+				var data = JSON.parse(xhr.responseText)		
+				callback(data)
+			}else{
+				alert("服务器异常")
+			}
+		}
+		xhr.send()
+	}
+	getMusiclist(callback)
+
+
 	//调用
-	getMusiclist(function(list){
-		musiclist = list.song
-		// 获取音乐播放列表第一个
-		loadMusic(list.song[currentIndex])
-		console.log(list)
-	})
+	 function callback(data) {
+		musicObj = data.song[0]
+		 console.log(musicObj)
+		 loadMusic(musicObj)
+	}
+	
+	// getMusiclist(function(list){
+	// 	musiclist = list.song[0]
+	// 	// 获取音乐播放列表第一个
+	// 	loadMusic(list.song[0])  //currentIndex
+	// 	console.log(musiclist)
+	// })
 	
 	function loadMusic(musicObj){
 		console.log(musicObj)
-		getMusiclist()
 		//获取资源的url,标题和作者
 		audioObject.src =  musicObj.url 
 		title.innerText = musicObj.title
@@ -204,7 +211,7 @@
 		clearInterval(clock)
 	}
 	audioObject.onended = function(){
-		getMusiclist(musiclist)
+		getMusiclist(callback)
 		//loadMusic()  //加载音乐函数
 		// currentIndex = (++currentIndex)%musiclist.length
 	}
@@ -219,8 +226,7 @@
 	//下一曲
 	ttpodicon.onclick = function(){
 
-		//加载音乐
-		loadMusic()
+		getMusiclist(callback)
 		//currentIndex = (++currentIndex)%musiclist.length
 		console.log(currentIndex)
 	}
