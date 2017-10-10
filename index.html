@@ -59,7 +59,7 @@
 			          <div class="progress-total"></div>
 			          <div class="progress-now"></div>
 			        </div>
-			        <div class="time"></div>
+			        <div class="time">0:00</div>
 			        <div class="info">
 			        	<div class="title"></div>
 			        	<div class="auther"></div>
@@ -70,8 +70,9 @@
 		</div>
 
 		<ul class="clearfix">
+			<p class="left"><</p>
 			<li>
-				<img src="images/1.jpg" alt="专题">
+				<img src="images/1.jpg" data-channal="public_aaa_bbb" alt="专题">
 				<div class="name">
 					
 				</div>				
@@ -101,7 +102,9 @@
 				<div class="name">					
 				</div>	
 			</li>
+			<p class="right">></p>
 		</ul>
+
 	</div>
 
 
@@ -115,6 +118,7 @@
 	xhr.onload = function(){
 		if ((xhr.status>=200 && xhr.status<300) || xhr.status == 300) {
 			var list = JSON.parse(xhr.responseText)
+			console.log(list)
 			var index = 0
 			for (var i = 0; i < Singlename.length; i++) {
 				Singlename[i].innerText = list.channels[index].name
@@ -134,7 +138,7 @@
 	function getMusiclist(callback){
 
 		var xhr = new XMLHttpRequest()
-		xhr.open('GET','https://jirenguapi.applinzi.com/fm/getSong.php',true)
+		xhr.open('GET','http://api.jirengu.com/fm/getSong.php?',true)
 		xhr.onload = function(){
 			if ((xhr.status>=200 && xhr.status<300) || xhr.status == 300) {
 				callback(JSON.parse(xhr.responseText))			 
@@ -168,12 +172,13 @@
 		musiclist = list.song
 		// 获取音乐播放列表第一个
 		loadMusic(list.song[currentIndex])
+		console.log(list)
 	})
 	
 	function loadMusic(musicObj){
 		console.log(musicObj)
 		//获取资源的url,标题和作者
-		audioObject.src = 'http://cloud.hunger-valley.com/music/玫瑰.mp3'
+		audioObject.src = 'http://cloud.hunger-valley.com/music/玫瑰.mp3'  //musicObj.url
 		title.innerText = musicObj.title
 		auther.innerText = musicObj.artist
 		pic.src = musicObj.picture
@@ -211,6 +216,7 @@
 	}
 	//下一曲
 	ttpodicon.onclick = function(){
+
 		//加载音乐
 		loadMusic()
 		currentIndex = (++currentIndex)%musiclist.length

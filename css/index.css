@@ -125,10 +125,28 @@ ul{
 	background-color: rgba(204,204,204,.2);
 	/*border: 1px solid #ccc;*/
 }
+ul p{
+	position:absolute;
+	top: 80px;
+	font-size: 40px;
+	font-weight: bold;
+	background-color: rgba(204,204,204,.2);
+	color: #fff;
+	cursor: pointer;
+}
+ul p.left{		
+	left: 10px;	
+}
+ul p.right{
+	right: 10px;
+}
+
 ul>li{
+	
 	float: left;	
 	width: calc(100% / 6);
 	text-align: center;
+	height: 200px;
 }
 ul>li>img{
 	position: relative;
@@ -137,11 +155,12 @@ ul>li>img{
 	height: 150px;
 	padding: 20px;
 }
-ul>li:hover img{
+ul>li img:hover{
 	width: 160px;
 	height: 160px;
 }
 ul>li .name{
 	font-size: 16px;
 	margin-bottom: 5px;
+	color: #000;
 }
