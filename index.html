@@ -73,8 +73,7 @@
 			<p class="left"><</p>
 			<li>
 				<img src="images/1.jpg" data-channal="public_aaa_bbb" alt="专题">
-				<div class="name">
-					
+				<div class="name">					
 				</div>				
 			</li>
 			<li>
@@ -109,30 +108,8 @@
 
 
 <script>
-
-
-	var Singlename = document.querySelectorAll("ul>li .name")
-	//获取专辑分类
-	var xhr = new XMLHttpRequest()
-	xhr.open('GET',' https://jirenguapi.applinzi.com/fm/getChannels.php',true)
-	xhr.onload = function(){
-		if ((xhr.status>=200 && xhr.status<300) || xhr.status == 300) {
-			var list = JSON.parse(xhr.responseText)
-			console.log(list)
-			var index = 0
-			for (var i = 0; i < Singlename.length; i++) {
-				Singlename[i].innerText = list.channels[index].name
-				index++
-			}								 
-		}else{
-			alert("服务器异常")
-		}
-	}
-	xhr.send()
-
-
-
 	//声明变量存储元素
+	var musicType
 	var currentIndex = 0
 	var clock
 	var musiclist = []
@@ -148,17 +125,88 @@
 	var playS = document.querySelector('.bofang')
 	var ttpodicon = document.querySelector('.ttpodicon')
 	var bar = document.querySelector('.progress .bar')
+	var Singlename = document.querySelectorAll("ul>li .name")
+	var li = document.querySelectorAll("ul>li")
+	var intro = document.querySelector(".intro")
+	var img_list = document.querySelectorAll("ul>li>img")
+	//获取专辑分类
+	function getchannel(call){
+		var xhr = new XMLHttpRequest()
+		xhr.open('GET',' https://jirenguapi.applinzi.com/fm/getChannels.php',true)
+		xhr.onload = function(){
+			if ((xhr.status>=200 && xhr.status<300) || xhr.status == 300) {
 
+				var data = JSON.parse(xhr.responseText).channels
+				call(data)
+				// var index = 0
+				// for (var i = 0; i < Singlename.length; i++) {
+				// 	Singlename[i].innerText = data[index].name
+				// 	index++
+				// }								 
+			}else{
+				alert("服务器异常")
+			}
+		}
+		xhr.send()
+	}
+
+	getchannel(call)
+
+	function call(data){
+		console.log(data)
+		for (var i = 0; i < data.length; i++) {
+			var id = data[i].channel_id
+			li[i].setAttribute("channel_id",id)
+			Singlename[i].innerText = data[i].name
+			console.log(1)
+			li[i].onclick = function(){
+				musicType = data[i].name
+				console.log(2)
+				return getSong(id, data[i].name)
+			}
+		}
+		
+
+		// forEach循环会出现不能读取属性
+	}
+
+	function getSong(id, type) {
+	  var codeType = id
+	 
+	  var xhr = new XMLHttpRequest();
+	  var songCode = "https://jirenguapi.applinzi.com/fm/getSong.php?channel=" + codeType
+	  xhr.open("get", songCode ,true);
+	  xhr.send();
+	  xhr.onload = function() {
+	    var data = JSON.parse(xhr.responseText).song[0];
+	    var songUrl = data.url
+	    if (songUrl) {
+	    	//获取歌曲信息
+	    	audioObject.src =  data.url 
+	    	intro.innerText = musicType
+	    	title.innerText = data.title
+	    	auther.innerText = data.artist
+			pic.src = data.picture
+			bg.src = data.picture
+	    } else {
+	      //获取失败? 那就再来一次!
+	      getSong(codeType, musicType)
+	    }
+	  }
+	}
+
+	
 	//音乐地址
 	//封装一个函数
 	
 	function getMusiclist(callback){
 
 		var xhr = new XMLHttpRequest()
-		xhr.open('GET','https://jirenguapi.applinzi.com/fm/getSong.php?',true)
+		xhr.open('GET','https://jirenguapi.applinzi.com/fm/getSong.php?channel',true)
 		xhr.onload = function(){
 			if ((xhr.status>=200 && xhr.status<300) || xhr.status == 300) {
-				var data = JSON.parse(xhr.responseText)		
+				var data = JSON.parse(xhr.responseText)
+				// console.log(data)		
 				callback(data)
 			}else{
 				alert("服务器异常")
@@ -172,7 +220,7 @@
 	//调用
 	 function callback(data) {
 		musicObj = data.song[0]
-		 console.log(musicObj)
+		 // console.log(musicObj)
 		 loadMusic(musicObj)
 	}
 	
@@ -184,7 +232,7 @@
 	// })
 	
 	function loadMusic(musicObj){
-		console.log(musicObj)
+		// console.log(musicObj)
 		//获取资源的url,标题和作者
 		audioObject.src =  musicObj.url 
 		title.innerText = musicObj.title
@@ -228,11 +276,11 @@
 
 		getMusiclist(callback)
 		//currentIndex = (++currentIndex)%musiclist.length
-		console.log(currentIndex)
+		// console.log(currentIndex)
 	}
 
 	bar.addEventListener('click',function(e){
-		console.log(e)
+		// console.log(e)
 		var percent = e.offsetX / parseInt(getComputedStyle(this).width)
 		audioObject.currentTime = audioObject.duration * percent
 
