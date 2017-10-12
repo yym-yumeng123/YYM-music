@@ -129,6 +129,8 @@
 	var li = document.querySelectorAll("ul>li")
 	var intro = document.querySelector(".intro")
 	var img_list = document.querySelectorAll("ul>li>img")
+
+
 	//获取专辑分类
 	function getchannel(call){
 		var xhr = new XMLHttpRequest()
@@ -158,10 +160,9 @@
 			var id = data[i].channel_id
 			li[i].setAttribute("channel_id",id)
 			Singlename[i].innerText = data[i].name
-			console.log(1)
+
 			li[i].onclick = function(){
 				musicType = data[i].name
-				console.log(2)
 				return getSong(id, data[i].name)
 			}
 		}
@@ -179,6 +180,9 @@
 	  xhr.send();
 	  xhr.onload = function() {
 	    var data = JSON.parse(xhr.responseText).song[0];
+	    //看一下数据
+	    console.log(data)
+
 	    var songUrl = data.url
 	    if (songUrl) {
 	    	//获取歌曲信息
