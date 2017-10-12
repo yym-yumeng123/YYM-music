@@ -127,7 +127,7 @@
 	var bar = document.querySelector('.progress .bar')
 	var Singlename = document.querySelectorAll("ul>li .name")
 	var li = document.querySelectorAll("ul>li")
-	var intro = document.querySelector(".intro")
+	var intro = document.querySelector(".intro p")
 	var img_list = document.querySelectorAll("ul>li>img")
 
 
@@ -162,7 +162,7 @@
 			Singlename[i].innerText = data[i].name
 
 			li[i].onclick = function(){
-				musicType = data[i].name
+				musicType = data[i].name 
 				return getSong(id, data[i].name)
 			}
 		}
