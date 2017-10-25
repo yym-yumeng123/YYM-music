@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="referrer" content="never">
 	<title>FM</title>
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="./css/index.css">
@@ -109,6 +110,7 @@
 
 <script>
 	//声明变量存储元素
+
 	var musicType
 	var currentIndex = 0
 	var clock
@@ -192,6 +194,7 @@
 	    	auther.innerText = data.artist
 			pic.src = data.picture
 			bg.src = data.picture
+			img_list.src = data.picture
 	    } else {
 	      //获取失败? 那就再来一次!
 	      getSong(codeType, musicType)
@@ -210,7 +213,7 @@
 		xhr.onload = function(){
 			if ((xhr.status>=200 && xhr.status<300) || xhr.status == 300) {
 				var data = JSON.parse(xhr.responseText)
-				// console.log(data)		
+				console.log(data)		
 				callback(data)
 			}else{
 				alert("服务器异常")
@@ -266,6 +269,9 @@
 		getMusiclist(callback)
 		//loadMusic()  //加载音乐函数
 		// currentIndex = (++currentIndex)%musiclist.length
+		// 
+		// 点击后时间到播放同一种类的音乐
+		// getSong()
 	}
 	//点击暂停
 	pau.onclick = function(){
