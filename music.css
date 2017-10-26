@@ -105,7 +105,7 @@ main .detail .tag{
   background: #2e6eec;
 }
 main .detail h1{
-  font-size: 6vh;
+  font-size: 5vh;
   margin-top: 2vh;
 }
 main .icons{
@@ -140,7 +140,7 @@ main .area-bar .current-time{
 main .area-bar .bar-progress{
   position: absolute;
   height: .8vh;
-  width: 10%;
+  width: 0;
   background-color: #fff;
   border-radius: .2vh;
   transition: width .8s;
@@ -151,7 +151,7 @@ main .author {
   margin-top: 3vh;
 }
 main .lyric {
-  font-size: 2vh;
+  font-size: 3vh;
   margin-top: 2vh;
   color: rgba(255, 255, 255, 0.4);
 }
