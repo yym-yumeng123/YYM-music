@@ -114,3 +114,32 @@ if (Array.isArray(times)) {
 ```
 
 ### jquery插件,弄一个酷炫的歌词
+- 如何写一个jquery插件
+```
+$.fn.functionName = function() {}      // 插件写法
+
+$('element').functionName()            // 使用
+```
+
+```
+# 用了Animata.css, 让歌词变得不那么平淡
+$.fn.boomText = function(type){
+  type = type || 'rollIn'     // animate.min.css 动画库
+  this.html(function(){
+    var arr = $(this).text()
+    .split('').map(function(word){
+        return '<span class="boomText">'+ word + '</span>'
+    })
+    return arr.join('')
+  })                          // 把html里面的东西分割,变成一个字符
+  var index = 0
+  var $boomTexts = $(this).find('span')
+  var clock = setInterval(function(){
+    $boomTexts.eq(index).addClass('animated ' + type)  // 每个字体加一个动画
+    index++
+    if(index >= $boomTexts.length){
+      clearInterval(clock)
+    }
+  }, 300)
+}
+```
