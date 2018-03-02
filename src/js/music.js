@@ -19,7 +19,7 @@ var Footer = {
 	    this.$rightBtn = this.$footer.find('.icon-right')
 	    this.isToEnd = false   //判断您点击轮播是不是到最后了
 	    this.isToStart = true
-	    this.isAnimate = false  //状态锁
+	    this.isAnimate = false //状态锁
 
 		this.bind()
 		this.render()
@@ -29,7 +29,7 @@ var Footer = {
 		var _this = this
 		$(window).resize(function(){
 			_this.setStyle()
-		})
+		});
 		//点击右边的icon 往左移动
 		this.$rightBtn.on('click',function(){
 			if (_this.isAnimate ) {return}
@@ -38,7 +38,7 @@ var Footer = {
 			//给个判断条件
 			if (!_this.isToEnd) {
 				//状态锁
-				_this.isAnimate = true
+				_this.isAnimate = true;
 				_this.$ul.animate({
 					left: '-=' + rowCount*itemWidth
 				},400,function(){
@@ -47,9 +47,9 @@ var Footer = {
 					_this.isToStart = false
 					//如果盒子的宽度+ 往左偏移的宽度  >= ul的宽度
 					if(parseFloat(_this.$box.width()) - parseFloat(_this.$ul.css('left')) >= parseFloat(_this.$ul.css('width')) ){
-	            _this.isToEnd = true
-	          }
-				})
+			            _this.isToEnd = true
+			        }
+			    })
 			}
 		})
 		//点击左边往右移动

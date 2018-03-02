@@ -1,0 +1,22 @@
+{
+  "name": "YYM-music",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:yym-yumeng123/YYM-music.git",
+  "author": "yym <1614527443@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2"
+  },
+  "devDependencies": {
+    "gulp-clean": "^0.4.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-jshint": "^2.1.0",
+    "gulp-uglify": "^3.0.0",
+    "jshint": "^2.9.5"
+  }
+}
